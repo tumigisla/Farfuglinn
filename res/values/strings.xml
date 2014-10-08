@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Farfuglinn</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Hello world! and Hello space!</string>
     <string name="action_settings">Settings</string>
 
 </resources>
