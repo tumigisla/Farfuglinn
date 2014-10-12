@@ -3,6 +3,7 @@ package com.example.farfuglinn;
 import com.example.farfuglinn.R;
 
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -10,7 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
-public class MainActivity extends FragmentActivity implements
+@SuppressLint("NewApi") public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	private ViewPager viewPager;
@@ -18,7 +19,7 @@ public class MainActivity extends FragmentActivity implements
 	private ActionBar actionBar;
 	// Tab titles
 	private String[] tabs = { "Brottfarir", "Komur", "Þín flug" };
-
+	// Smá breyting til að pusha
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
