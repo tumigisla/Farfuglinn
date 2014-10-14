@@ -1,3 +1,9 @@
+/*  Ellert Finnbogi Eiríksson
+*   12.10.2014
+*   Tekur inn url frá vefþjónustu og skilar streng með json
+*/
+
+
 package com.example.farfuglinn;
 
 import java.io.BufferedReader;
