@@ -1,3 +1,9 @@
+/*  Atli Sigurðsson
+*   12.10.2014
+*   Birtir brottfarir
+*/
+
+
 package com.example.farfuglinn;
 
 import com.example.farfuglinn.R;
