@@ -1,3 +1,8 @@
+/*  Atli Sigurðsson
+*   12.10.2014
+*   Birtir þín flug
+*/
+
 package com.example.farfuglinn;
 
 import com.example.farfuglinn.R;
@@ -9,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-//��n flug
+//Þín flug
 public class YourFlights extends Fragment {
 
 	@Override
