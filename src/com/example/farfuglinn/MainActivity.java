@@ -1,3 +1,8 @@
+/*  Atli Sigur√∞sson
+*   12.10.2014
+*   Main klasi, tengist hinum me√∞ Fragment
+*/
+
 package com.example.farfuglinn;
 
 import com.example.farfuglinn.R;
@@ -18,8 +23,8 @@ import android.support.v4.view.ViewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
 	// Tab titles
-	private String[] tabs = { "Brottfarir", "Komur", "ﬁÌn flug" };
-	// Sm· breyting til a pusha
+	private String[] tabs = { "Brottfarir", "Komur", "√û√≠n flug" };
+	// Sm√° breyting til a√∞ pusha
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
