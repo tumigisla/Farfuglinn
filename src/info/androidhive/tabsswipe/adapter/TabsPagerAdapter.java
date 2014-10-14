@@ -1,3 +1,5 @@
+// Aðfenginn klasi úr pakkasafni androidhive
+
 package info.androidhive.tabsswipe.adapter;
 
 import com.example.farfuglinn.Brottfarir;
