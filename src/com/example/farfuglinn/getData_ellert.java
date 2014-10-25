@@ -18,7 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 
 
-public class getData {
+public class getData_ellert {
 	
 	public static String getFlightInfo(String url) 
 	{

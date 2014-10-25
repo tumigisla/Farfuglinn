@@ -69,7 +69,7 @@ public class Komur extends Fragment {
 						resultsList = Flight.fromJSON(results);
 						/// DEBUG PRINT //
 						for (Flight f : resultsList) {
-							System.out.println("DEBUG "+f.destination);
+							System.out.println("DEBUG "+f.to);
 							System.out.println("DEBUG "+f.plannedArrival);
 							System.out.println("DEBUG "+f.airline);
 						}

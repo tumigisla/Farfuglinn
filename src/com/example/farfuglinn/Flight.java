@@ -8,15 +8,26 @@ import java.util.ArrayList;
 
 public class Flight {
 
-	public String destination;
-	public String plannedArrival;
+	public String date;
+	public String flightNumber;
 	public String airline;
+	public String from;
+	public String plannedArrival;
+	public String realArrival;
+	public String status;
+	public String to;
+	
 	
 	public Flight (JSONObject object) {
 		try {
-			this.destination = object.getString("to");
-			this.plannedArrival = object.getString("plannedArrival");
+			this.date = object.getString("date");
+			this.flightNumber = object.getString("flightNumber");
 			this.airline = object.getString("airline");
+			this.from = object.getString("from");
+			this.plannedArrival = object.getString("plannedArrival");
+			this.realArrival = object.getString("realArrival");
+			this.status = object.getString("status");
+			this.to = object.getString("to");
 		}
 		catch (JSONException e) {
 			e.printStackTrace();
