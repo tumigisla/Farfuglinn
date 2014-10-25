@@ -1,6 +1,6 @@
 /*  Atli Sigurðsson
 *   12.10.2014
-*   Displays departures
+*   Displays arrivals
 */
 
 
