@@ -11,11 +11,15 @@ import com.example.farfuglinn.GetData;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +28,9 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 
@@ -37,6 +43,8 @@ public class Brottfarir extends Fragment {
 	private ArrayList<Flight> resultsList;
 	private ListView listView;
 	private View rootView;
+	private YourFlights addBrott;
+	private Object temp;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,8 +104,54 @@ public class Brottfarir extends Fragment {
 				// populate the listView
 				listView = (ListView)rootView.findViewById(R.id.list);
 				listView.setAdapter(adapter);
+				// listener for click
+				listView.setOnItemLongClickListener(onListClick);
 			}
 			
 			
 		}
+		private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
+			
+				temp  = listView.getItemAtPosition(position);
+				registerForContextMenu(listView);
+				
+				return false;
+			}
+		};
+		// Context menu
+		@Override
+		public void onCreateContextMenu(ContextMenu menu, View v,
+				ContextMenuInfo menuInfo) {
+				menu.setHeaderTitle("Options");
+				menu.add(0, v.getId(),0,"Add to Your Flights");
+				menu.add(0, v.getId(),0,"Cancel");
+					
+				}
+		
+		@Override // context selected 
+	    public boolean onContextItemSelected(MenuItem item) {  
+	        if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());}  
+	        else if(item.getTitle().equals("Cancel")){cancel(item.getItemId());}  
+	        else {return false;}  
+	    return true;  
+	    }
+		// adds flight in yourFlights
+		public void addFlight(int id){  
+	        Toast.makeText(getActivity(), "You have added the flight to your flights"+temp.toString(), Toast.LENGTH_SHORT).show(); 
+	        //addBrott._yourFlights = appendValue(addBrott._yourFlights, temp);
+	    } 
+		//nothing
+		public void cancel(int id){  
+			Toast.makeText(getActivity(), "you suck!", Toast.LENGTH_SHORT).show();  
+    }
+		/*private Object[] appendValue(Object[] obj, Object newObj) {
+			 
+			ArrayList<Object> temp = new ArrayList<Object>(Arrays.asList(obj));
+			temp.add(newObj);
+			return temp.toArray();
+		 
+		  }*/
+		
+		
 }
