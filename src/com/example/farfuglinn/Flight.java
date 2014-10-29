@@ -49,14 +49,14 @@ public class Flight {
 				e.printStackTrace();
 			}
 		}
-		
+		/*
 		/// DEBUG PRINT ///
 		// PRE SORT //
 		for (Flight f : flights) {
 			System.out.println("DEBUG PRE : \t" + f.plannedArrival);
 		}
 		//
-		
+		*/
 		// sort by arrival time
 		Collections.sort(flights, new Comparator<Flight>() {
 			@Override
@@ -65,14 +65,14 @@ public class Flight {
 			}
 		});
 		
-		
+		/*
 		/// DEBUG PRINT ///
 		// POST SORT //
 		for (Flight f : flights) {
 			System.out.println("DEBUG POST : \t" + f.plannedArrival);
 		}
 		//
-		
+		*/
 		
 		return flights;
 	}

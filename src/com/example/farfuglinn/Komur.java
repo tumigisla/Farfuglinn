@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -50,12 +52,62 @@ public class Komur extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
+rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
 		
-		new GetResults().execute();
+		// not use this for now, create dummy data until this has been fixed
+		//new GetResults().execute();
+		
+		resultsList = createDummyFlights();
+		
+		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
+		// populate the listView
+		listView = (ListView)rootView.findViewById(R.id.list);
+		listView.setAdapter(adapter);
+		// listener for click
+		listView.setOnItemLongClickListener(onListClick);
 		
 		return rootView;
 	}
+	
+	
+	// creating dummy flights while the GetData is being fixed
+		public ArrayList<Flight> createDummyFlights() {
+	        String json = null;
+	        ArrayList<Flight> dummyFlights;
+	        try {
+
+	            InputStream is = getActivity().getAssets().open("jsonFiles/arrivals.json");
+	            
+	            int size = is.available();
+
+	            byte[] buffer = new byte[size];
+
+	            is.read(buffer);
+
+	            is.close();
+
+	            json = new String(buffer, "UTF-8");
+	            //Log.d("Brottfarir", json);
+
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	            return null;
+	        }
+	        
+	        try {
+	        	JSONObject object = new JSONObject(json);
+				results = object.getJSONArray(TAG_RESULTS);
+				dummyFlights = Flight.fromJSON(results);
+	        }
+	        catch (JSONException e) {
+	        	dummyFlights = null;
+	        	e.printStackTrace();
+	        }
+	        
+	        
+	        return dummyFlights;
+
+	    }
 	
 
 	

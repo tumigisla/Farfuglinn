@@ -32,6 +32,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageInfo;
+import java.io.File;
+import android.util.*;
+import android.content.ContextWrapper;
+
+import 	android.content.res.AssetManager;
+
+import android.content.Context;
 
 
 //Departures
@@ -52,10 +71,59 @@ public class Brottfarir extends Fragment {
 
 		rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
 		
-		new GetResults().execute();
+		// not use this for now, create dummy data until this has been fixed
+		//new GetResults().execute();
+		
+		resultsList = createDummyFlights();
+		
+		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
+		// populate the listView
+		listView = (ListView)rootView.findViewById(R.id.list);
+		listView.setAdapter(adapter);
+		// listener for click
+		listView.setOnItemLongClickListener(onListClick);
 		
 		return rootView;
 	}
+	
+	// creating dummy flights while the GetData is being fixed
+	public ArrayList<Flight> createDummyFlights() {
+        String json = null;
+        ArrayList<Flight> dummyFlights;
+        try {
+
+            InputStream is = getActivity().getAssets().open("jsonFiles/departures.json");
+            
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+            //Log.d("Brottfarir", json);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+        try {
+        	JSONObject object = new JSONObject(json);
+			results = object.getJSONArray(TAG_RESULTS);
+			dummyFlights = Flight.fromJSON(results);
+        }
+        catch (JSONException e) {
+        	dummyFlights = null;
+        	e.printStackTrace();
+        }
+        
+        
+        return dummyFlights;
+
+    }
 	
 
 	
