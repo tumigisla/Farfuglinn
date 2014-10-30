@@ -11,6 +11,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
+	
+	// Just make the activity once, probably makes it easier
+	// for changing some attribute of an instance of the
+	// YourFlights class.
+	public Brottfarir brottfarir = new Brottfarir();;
+	public Komur komur = new Komur();
+	public YourFlights yourFlights = new YourFlights();
 
 	public TabsPagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -21,14 +28,11 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
 		switch (index) {
 		case 0:
-			// Top Rated fragment activity
-			return new Brottfarir();
+			return brottfarir;
 		case 1:
-			// Games fragment activity
-			return new Komur();
+			return komur;
 		case 2:
-			// Movies fragment activity
-			return new YourFlights();
+			return yourFlights;
 		}
 
 		return null;
