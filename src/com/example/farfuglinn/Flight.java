@@ -1,3 +1,8 @@
+/*
+* Tumi Snær Gíslason
+* 30.10.2014
+* An instance of Flight is one entry in the JSONArray data.
+*/
 package com.example.farfuglinn;
 
 import org.json.JSONArray;
