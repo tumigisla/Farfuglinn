@@ -1,3 +1,8 @@
+/*
+* Tumi Snær Gíslason
+* 25.10.2014
+* Makes http request and gets a response String
+*/
 package com.example.farfuglinn;
 
 import java.io.IOException;
