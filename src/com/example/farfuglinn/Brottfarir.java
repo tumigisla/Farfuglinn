@@ -1,5 +1,5 @@
-/*  Atli SigurÃ°sson
-*   12.10.2014
+/*  Atli SigurÃƒÂ°sson, Tumi SnÃ¦r GÃ­slason, Trausti MÃ¡r Svavarsson
+*   05.11.2014
 *   Displays departures
 */
 
@@ -63,7 +63,7 @@ public class Brottfarir extends Fragment {
 	private ListView listView;
 	private View rootView;
 	
-	// gerum fligh object fyrir şağ sem er valiğ í lista og pos breytur sem heldur utan um position í listview.
+	// gerum fligh object fyrir Ã¾aÃ° sem er valiÃ° Ã­ lista og pos breytur sem heldur utan um position Ã­ listview.
 	private Flight flight;
 	private Integer pos=null;
 	
@@ -179,7 +179,7 @@ public class Brottfarir extends Fragment {
 			}
 				
 		}
-		// şağ er eitthvağ bug meğ ağ fá position til ağ kicka alltaf inn.... şarf ağ finna eh útúr şví.
+		// Ã¾aÃ° er eitthvaÃ° bug meÃ° aÃ° fÃ¡ position til aÃ° kicka alltaf inn.... Ã¾arf aÃ° finna eh ÃºtÃºr Ã¾vÃ­.
 		private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 				
