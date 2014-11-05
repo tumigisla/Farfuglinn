@@ -41,11 +41,14 @@ public class Komur extends Fragment {
 	private static String url = "http://apis.is/flight?language=en&type=arrivals";
 	private static final String TAG_RESULTS = "results";
 	private JSONArray results = null;
-	private ArrayList<Flight> resultsList;
+	public static ArrayList<Flight> resultsList;
 	private ListView listView;
 	private View rootView;
-	private Object temp;
-	private YourFlights addKomur;
+	
+	// gerum fligh object fyrir það sem er valið í lista og pos breytur sem heldur utan um position í listview.
+	private Flight flight;
+	private Integer pos=null;
+	
 	
 	
 	@Override
@@ -157,48 +160,49 @@ rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
 				listView = (ListView)rootView.findViewById(R.id.list);
 				listView.setAdapter(adapter);
 				
-				// long click listener
-				listView.setOnItemLongClickListener(onListClick);
 			}
 				
 		}
+		// það er eitthvað bug með að fá position til að kicka alltaf inn.... þarf að finna eh útúr því.
 		private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 				
-				temp  = listView.getItemAtPosition(position);
+				pos=position;
+				
 				registerForContextMenu(listView);
-				
-				return false;
-				
+				return false;		
 			}
 		};
 		
-		// Context menu
+		// create Context menu
 				@Override
-		public void onCreateContextMenu(ContextMenu menu, View v,
-				ContextMenuInfo menuInfo) {
-				menu.setHeaderTitle("Options");
-				menu.add(0, v.getId(),0,"Add to Your Flights");
-				menu.add(0, v.getId(),0,"Cancel");
+		public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+			menu.setHeaderTitle("Options");
+			menu.add(0, v.getId(),0,"Add to Your Flights");
+			menu.add(0, v.getId(),0,"Cancel");
 							
 						}
 		@Override  // context selected
 		public boolean onContextItemSelected(MenuItem item) {  
-			 	if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());}  
-			    else if(item.getTitle().equals("Cancel")){cancel(item.getItemId());}  
-			    else {return false;}  
-			    return true;  
-			    }
-		//adds flight in YourFlights
+			 if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());}  
+			 else {return false;}  
+			 return true;  
+		}
+		
+		//adds flight in YourFlightslist
 		public void addFlight(int id){  
-				// test if it runs
-			  	Toast.makeText(getActivity(), "You have added the flight to your flights"+temp.toString(), Toast.LENGTH_SHORT).show(); 
-			     //addKomur._yourFlights = appendValue(addKomur._yourFlights, temp);
-			    } 
-		//nothing
-		public void cancel(int id){  
-				Toast.makeText(getActivity(), "you suck!", Toast.LENGTH_SHORT).show();  
-		    }
-		
-		
+			
+			flight = (Flight) listView.getItemAtPosition(pos);
+			// check if the flight is already in your list.
+			if(YourFlights.yourFlightsList.contains(flight)){
+				Toast.makeText(getActivity(), "All ready in your flights", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			//else we add the flight to list
+			else{
+				YourFlights.yourFlightsList.add(flight);
+	        	Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show(); 
+	        	//stream_out
+			}
+		} 
 }

@@ -59,11 +59,14 @@ public class Brottfarir extends Fragment {
 	private static String url = "http://apis.is/flight?language=en&type=departures";
 	private static final String TAG_RESULTS = "results";
 	private JSONArray results = null;
-	private ArrayList<Flight> resultsList;
+	public static ArrayList<Flight> resultsList;
 	private ListView listView;
 	private View rootView;
-	private YourFlights addBrott;
-	private Object temp;
+	
+	// gerum fligh object fyrir það sem er valið í lista og pos breytur sem heldur utan um position í listview.
+	private Flight flight;
+	private Integer pos=null;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +83,7 @@ public class Brottfarir extends Fragment {
 		// populate the listView
 		listView = (ListView)rootView.findViewById(R.id.list);
 		listView.setAdapter(adapter);
+		
 		// listener for click
 		listView.setOnItemLongClickListener(onListClick);
 		
@@ -172,16 +176,15 @@ public class Brottfarir extends Fragment {
 				// populate the listView
 				listView = (ListView)rootView.findViewById(R.id.list);
 				listView.setAdapter(adapter);
-				// listener for click
-				listView.setOnItemLongClickListener(onListClick);
 			}
-			
-			
+				
 		}
+		// það er eitthvað bug með að fá position til að kicka alltaf inn.... þarf að finna eh útúr því.
 		private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-			
-				temp  = listView.getItemAtPosition(position);
+				
+				pos=position;
+				
 				registerForContextMenu(listView);
 				
 				return false;
@@ -199,27 +202,22 @@ public class Brottfarir extends Fragment {
 		
 		@Override // context selected 
 	    public boolean onContextItemSelected(MenuItem item) {  
-	        if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());}  
-	        else if(item.getTitle().equals("Cancel")){cancel(item.getItemId());}  
+	        if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());}    
 	        else {return false;}  
 	    return true;  
 	    }
 		// adds flight in yourFlights
-		public void addFlight(int id){  
-	        Toast.makeText(getActivity(), "You have added the flight to your flights"+temp.toString(), Toast.LENGTH_SHORT).show(); 
-	        //addBrott._yourFlights = appendValue(addBrott._yourFlights, temp);
+		public void addFlight(int id){ 
+			flight = (Flight) listView.getItemAtPosition(pos);
+			if(YourFlights.yourFlightsList.contains(flight)){
+				Toast.makeText(getActivity(), "All ready in your flights", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			
+			else{
+				YourFlights.yourFlightsList.add(flight);
+	        	Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show(); 
+	        	//stream_out
+			}
 	    } 
-		//nothing
-		public void cancel(int id){  
-			Toast.makeText(getActivity(), "you suck!", Toast.LENGTH_SHORT).show();  
-    }
-		/*private Object[] appendValue(Object[] obj, Object newObj) {
-			 
-			ArrayList<Object> temp = new ArrayList<Object>(Arrays.asList(obj));
-			temp.add(newObj);
-			return temp.toArray();
-		 
-		  }*/
-		
-		
 }
