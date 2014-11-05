@@ -1,3 +1,8 @@
+/*
+* Tumi Snær Gíslason
+* 25.10.2014
+* Custom array adapter for inserting an ArrayList<Flight> to ListView
+*/
 package com.example.farfuglinn;
 
 import android.widget.ArrayAdapter;
