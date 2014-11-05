@@ -1,6 +1,6 @@
-/*  Atli Sigurðsson
+/*  Atli SigurÃ°sson, Tumi Snær Gíslason, Trausti Már Svavarsson
 *   12.10.2014
-*   Birtir þín flug
+*   Birtir Ã¾Ã­n flug
 */
 
 package com.example.farfuglinn;
@@ -30,7 +30,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-//Þín flug
+//ÃžÃ­n flug
 public class YourFlights extends Fragment {
 	//public static ArrayList<Flight> yourFlightsList;
 	private static String url = "http://apis.is/flight?language=en&type=departures";
@@ -157,7 +157,7 @@ public class YourFlights extends Fragment {
 			
 			
 		}
-		// �a� er eitthva� bug me� a� f� position til a� kicka alltaf inn.... �arf a� finna eh �t�r �v�.
+		// það er eitthvað bug með að fá position til að kicka alltaf inn.... þarf að finna eh útúr því.
 		private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 			
