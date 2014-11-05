@@ -7,10 +7,14 @@
 
 package com.example.farfuglinn;
 
+import com.example.farfuglinn.*;
+
 import android.database.sqlite.*;
+import android.database.Cursor;
 
 import android.content.*;
 import java.util.Objects;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -29,6 +33,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 	private static final String TAG_RESULTS = "results";
 	
 	// Database attributes
+	private static final String ATTR_ID = "ID";
 	private static final String ATTR_DATE = "date";
 	private static final String ATTR_FLIGHTNUMBER = "flightNumber";
 	private static final String ATTR_AIRLINE = "airline";
@@ -105,6 +110,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 				JSONObject object = jsonArray.getJSONObject(i);
 				
 				ContentValues values = new ContentValues();
+				values.put(ATTR_ID, i);
 				values.put(ATTR_DATE, object.getString(ATTR_DATE));
 				values.put(ATTR_FLIGHTNUMBER, object.getString(ATTR_FLIGHTNUMBER));
 				values.put(ATTR_AIRLINE, object.getString(ATTR_AIRLINE));
@@ -143,6 +149,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 				// Create table departures
 				String CREATE_TABLE_DEPARTURES = "" +
 					"CREATE TABLE Departures (" +
+						"ID int" +
 						"date varchar(7)," +
 						"flightNumber varchar(7)," +
 						"airline varchar(20)," +
@@ -158,6 +165,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 				// Create table arrivals
 				String CREATE_TABLE_ARRIVALS = "" +
 					"CREATE TABLE Arrivals (" +
+						"ID int" +
 						"date varchar(7)," +
 						"flightNumber varchar(7)," +
 						"airline varchar(20)," +
@@ -183,6 +191,37 @@ public class SQLiteManager extends SQLiteOpenHelper{
 		return dbStr;
 	}
 	
+	
+	
+	// table is Departures/Arrivals
+	// Extract all values from table to an ArrayList of Flights
+	public ArrayList<Flight> extractValues (String table) {
+		
+		ArrayList<Flight> flightsList = new ArrayList<Flight>();
+		
+		int i = 0;
+		
+		String query = "SELECT * FROM " + table + " WHERE ID = " + Integer.toString(i) + ";";
+		
+		// Get reference to this (readable) database
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.rawQuery(query, null);
+		
+		Flight flight = null;
+		while (cursor.moveToNext()) {
+			
+			String[] tmp = new String[8];
+			for (int j = 1; j <= tmp.length; j++) {
+				tmp[j] = cursor.getString(j);
+			}
+			 
+			flight = new Flight(tmp);
+			flightsList.add(flight);
+		}
+		return flightsList;
+		
+	}
 	
 	
 }
