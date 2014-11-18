@@ -7,7 +7,6 @@
 package com.example.farfuglinn;
 
 import com.example.farfuglinn.R;
-import com.example.farfuglinn.GetData;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,16 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.app.ProgressDialog;
 
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -38,9 +32,7 @@ import android.widget.Toast;
 //Departures
 public class Komur extends Fragment {
 
-	private static String url = "http://apis.is/flight?language=en&type=arrivals";
-	private static final String TAG_RESULTS = "results";
-	private JSONArray results = null;
+	private static String url = "http://www.kefairport.is/Flugaaetlun/Komur/";
 	public static ArrayList<Flight> resultsList;
 	private ListView listView;
 	private View rootView;
@@ -55,97 +47,29 @@ public class Komur extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
-		
-		// not use this for now, create dummy data until this has been fixed
-		//new GetResults().execute();
-		
-		resultsList = createDummyFlights();
-		
-		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
-		// populate the listView
-		listView = (ListView)rootView.findViewById(R.id.list);
-		listView.setAdapter(adapter);
-		// listener for click
-		listView.setOnItemLongClickListener(onListClick);
-		
+		rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
+		new GetResults().execute();
 		return rootView;
 	}
 	
 	
-	// creating dummy flights while the GetData is being fixed
-		public ArrayList<Flight> createDummyFlights() {
-	        String json = null;
-	        ArrayList<Flight> dummyFlights;
-	        try {
-
-	            InputStream is = getActivity().getAssets().open("jsonFiles/arrivals.json");
-	            
-	            int size = is.available();
-
-	            byte[] buffer = new byte[size];
-
-	            is.read(buffer);
-
-	            is.close();
-
-	            json = new String(buffer, "UTF-8");
-	            //Log.d("Brottfarir", json);
-
-	        } catch (IOException ex) {
-	            ex.printStackTrace();
-	            return null;
-	        }
-	        
-	        try {
-	        	JSONObject object = new JSONObject(json);
-				results = object.getJSONArray(TAG_RESULTS);
-				dummyFlights = Flight.fromJSON(results);
-	        }
-	        catch (JSONException e) {
-	        	dummyFlights = null;
-	        	e.printStackTrace();
-	        }
-	        
-	        
-	        return dummyFlights;
-
-	    }
-	
-
-	
-	
-	
 		private class GetResults extends AsyncTask<Void, Void, Void> {
+			
+			ProgressDialog progressDialog;
+			
+			@Override
+			protected void onPreExecute() {
+				progressDialog = ProgressDialog.show(
+					getActivity(), "Farfuglinn", "Loading flights...", true
+				);
+			}
 			
 			@Override
 			protected Void doInBackground(Void... arg0) {
 				
-				GetData getData = new GetData();
-
-				String jsonStr = getData.getDataFromService(url, GetData.GET);
-				
-				if (jsonStr != null) {
-					try {
-						JSONObject object = new JSONObject(jsonStr);
-						results = object.getJSONArray(TAG_RESULTS);
-						resultsList = Flight.fromJSON(results);
-						/// DEBUG PRINT //
-						for (Flight f : resultsList) {
-							System.out.println("DEBUG "+f.to);
-							System.out.println("DEBUG "+f.plannedArrival);
-							System.out.println("DEBUG "+f.airline);
-						}
-						//////
-					}
-					catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-				
-				else {
-					Log.e("GetData", "Data could not be retrieved from the given URL");
-				}
+				HtmlScraper htmlScraper = new HtmlScraper(url);
+				htmlScraper.getHtmlString();
+				resultsList = htmlScraper.deliverResults();
 
 				return null;
 			}
@@ -155,6 +79,8 @@ rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
 			protected void onPostExecute(Void result) {
 				super.onPostExecute(result);
 			
+				progressDialog.dismiss();
+				
 				MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
 				// populate the listView
 				listView = (ListView)rootView.findViewById(R.id.list);
@@ -163,6 +89,10 @@ rootView = inflater.inflate(R.layout.fragment_brottfarir, container, false);
 			}
 				
 		}
+		
+		
+		
+		
 		// það er eitthvað bug með að fá position til að kicka alltaf inn.... þarf að finna eh útúr því.
 		private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){

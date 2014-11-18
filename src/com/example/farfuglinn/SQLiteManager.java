@@ -216,7 +216,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 				tmp[j] = cursor.getString(j);
 			}
 			 
-			flight = new Flight(tmp);
+			//flight = new Flight(tmp);    commented out while fixing
 			flightsList.add(flight);
 		}
 		return flightsList;

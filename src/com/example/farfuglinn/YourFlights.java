@@ -70,6 +70,7 @@ public class YourFlights extends Fragment {
 	}
 	
 	// creating dummy flights while the GetData is being fixed
+	/*
 	public ArrayList<Flight> createDummyFlights() {
         String json = null;
         ArrayList<Flight> dummyFlights;
@@ -107,7 +108,7 @@ public class YourFlights extends Fragment {
         return dummyFlights;
 
     }
-	
+	*/
 	
 		private class GetResults extends AsyncTask<Void, Void, Void> {
 			
@@ -122,7 +123,7 @@ public class YourFlights extends Fragment {
 					try {
 						JSONObject object = new JSONObject(jsonStr);
 						results = object.getJSONArray(TAG_RESULTS);
-						yourFlightsList = Flight.fromJSON(results);
+						//yourFlightsList = Flight.fromJSON(results);
 						/// DEBUG PRINT //
 						for (Flight f : yourFlightsList) {
 							System.out.println("DEBUG "+f.to);
