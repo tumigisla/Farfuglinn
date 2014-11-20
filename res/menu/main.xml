@@ -14,5 +14,11 @@
         android:title="@string/action_settings"
         android:icon="@drawable/england_flag_icon"
         android:onClick="buttonClickMethodLang"/>
+    
+    <item
+        android:id="@+id/action_refresh"
+        android:title="Refresh"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_refresh"></item>
 
 </menu>

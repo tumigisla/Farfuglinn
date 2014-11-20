@@ -5,20 +5,28 @@
 
 package com.example.farfuglinn;
 
+import com.example.farfuglinn.UpdateTask;
 import com.example.farfuglinn.R;
 
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 @SuppressLint("NewApi") public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -101,13 +109,48 @@ import android.view.MenuItem;
 
 	
 	
-	
+	//Fyrir refresh
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		getMenuInflater().inflate(R.menu.main, menu);
 		// We should save our menu so we can use it to reset our updater.
         mymenu = menu;
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch(item.getItemId()) {
+	    case R.id.action_refresh:
+	    	
+	    	 // Do animation start
+	        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        ImageView iv = (ImageView)inflater.inflate(R.layout.iv_refresh, null);
+	        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_refresh);
+	        rotation.setRepeatCount(Animation.INFINITE);
+	        iv.startAnimation(rotation);
+	        item.setActionView(iv);
+	        
+	        new UpdateTask(this).execute();
+	        
+	       
+	   //     new GetResults(this).execute();
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
+	 
+	 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB) @SuppressLint("NewApi") public void resetUpdating()
+	{
+	    // Get our refresh item from the menu
+	    MenuItem m = mymenu.findItem(R.id.action_refresh);
+	    if(m.getActionView()!=null)
+	    {
+	        // Remove the animation.
+	        m.getActionView().clearAnimation();
+	        m.setActionView(null);
+	    }
 	}
 	
 
