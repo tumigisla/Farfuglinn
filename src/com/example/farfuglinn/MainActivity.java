@@ -12,14 +12,18 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 @SuppressLint("NewApi") public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
+	private Menu mymenu; 
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
@@ -45,7 +49,9 @@ import android.view.MenuItem;
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 
 		//Adding tabs
-		if(lang == true && count == false){
+		Log.d(String.valueOf(count),"Title");
+	
+		if(count == true){
 			for (String tab_name : isl_tabs) {
 				actionBar.addTab(actionBar.newTab().setText(tab_name)
 						.setTabListener(this));
@@ -83,18 +89,26 @@ import android.view.MenuItem;
 	public void buttonClickMethodLang(MenuItem item)
 	{
 		counter++;
+		LanguagesCheck.atli(counter);
 		boolean in = true;
 		LanguagesCheck.change(in);
+		Intent i = getIntent();
+		finish();
+		startActivity(i);
 		
 	}
 	
-	public static int counter()
-	{
-		return counter;
+
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu){
+		getMenuInflater().inflate(R.menu.main, menu);
+		// We should save our menu so we can use it to reset our updater.
+        mymenu = menu;
+		return true;
 	}
-	
-	
-	
 	
 
 	@Override
