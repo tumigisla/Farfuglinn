@@ -1,6 +1,6 @@
-/*  Atli Sigurðsson
+/*  Atli Sigurdsson
 *   12.10.2014
-*   Main klasi, tengist hinum með Fragment
+*   Main klasi, tengist hinum med Fragment
 */
 
 package com.example.farfuglinn;
@@ -15,6 +15,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 @SuppressLint("NewApi") public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -22,9 +23,13 @@ import android.support.v4.view.ViewPager;
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
+	
 	// Tab titles
-	private String[] tabs = { "Brottfarir", "Komur", "Þín flug" };
-	// Smá breyting til að pusha
+	private String[] isl_tabs = { "Brottfarir", "Komur", "Min flug" };
+	private String[] en_tabs = {"Departures", "Arrivals", "My flights"};
+	private boolean lang = LanguagesCheck.isTrue();
+	private static int counter = 1;
+	private static boolean count = LanguagesCheck.count();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,10 +44,18 @@ import android.support.v4.view.ViewPager;
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 
-		// Adding Tabs
-		for (String tab_name : tabs) {
-			actionBar.addTab(actionBar.newTab().setText(tab_name)
-					.setTabListener(this));
+		//Adding tabs
+		if(lang == true && count == false){
+			for (String tab_name : isl_tabs) {
+				actionBar.addTab(actionBar.newTab().setText(tab_name)
+						.setTabListener(this));
+			}
+		}
+		else {
+			for (String tab_name : en_tabs) {
+				actionBar.addTab(actionBar.newTab().setText(tab_name)
+						.setTabListener(this));
+			}
 		}
 
 		/**
@@ -66,6 +79,23 @@ import android.support.v4.view.ViewPager;
 			}
 		});
 	}
+	//Buttonclick method to switch between languages
+	public void buttonClickMethodLang(MenuItem item)
+	{
+		counter++;
+		boolean in = true;
+		LanguagesCheck.change(in);
+		
+	}
+	
+	public static int counter()
+	{
+		return counter;
+	}
+	
+	
+	
+	
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {

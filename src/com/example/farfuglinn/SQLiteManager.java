@@ -1,5 +1,5 @@
 /*
- * Tumi Snær Gíslason
+tumi snaer gislason
  * November 4th 2014
  * Creates and updates an sqlite db containing flights and departures.
  * Parses JSONObject into the db.
@@ -43,7 +43,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 	private static final String ATTR_STATUS = "status";
 	private static final String ATTR_TO = "toPlace";
 	
-	private static HashMap<String, String> dropTablesMap = new HashMap<>();
+	//private static HashMap<String, String> dropTablesMap = new HashMap<>();
 	private static final String DROP_TABLES = "" +
 			"DROP TABLE IF EXISTS Departures;" +
 			"DROP TABLE IF EXISTS Arrivals;"
@@ -85,13 +85,13 @@ public class SQLiteManager extends SQLiteOpenHelper{
 	// Post: jsonStr -> JSONObject -> JSONArray -> this database 
 	public void jsonToDb(String jsonStr, String table) {
 		
-		dropTablesMap.put("Departures", "DROP TABLE IF EXISTS Departures;");
-		dropTablesMap.put("Arrivals", "DROP TABLE IF EXISTS Arrivals;");
+		//dropTablesMap.put("Departures", "DROP TABLE IF EXISTS Departures;");
+		//dropTablesMap.put("Arrivals", "DROP TABLE IF EXISTS Arrivals;");
 		
 		// Get reference to this (readable) database
 		SQLiteDatabase db = this.getReadableDatabase();
 		
-		db.execSQL(dropTablesMap.get(table));
+	//	db.execSQL(dropTablesMap.get(table));
 		db.execSQL(this.createTable(table));
 
 		db.close();
@@ -144,7 +144,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 		// Get current Unix epoch time and convert to String.
 				// long value in case of Y2038 problem, you never know...
 				long unixTimeStamp = System.currentTimeMillis() / 1000;
-				String unixTimeStampStr = Objects.toString(unixTimeStamp);
+			//	String unixTimeStampStr = Objects.toString(unixTimeStamp);
 				
 				// Create table departures
 				String CREATE_TABLE_DEPARTURES = "" +
@@ -158,7 +158,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 						"realArrival varchar(5)," +
 						"status varchar(10)," +
 						"toPlace varchar(20)," +
-						"timeStamp INTEGER DEFAULT " + unixTimeStampStr + "," +
+						//"timeStamp INTEGER DEFAULT " + unixTimeStampStr + "," +
 						"PRIMARY KEY(flightNumber)" + // will be unique for each day at least
 					");";
 				
@@ -174,7 +174,7 @@ public class SQLiteManager extends SQLiteOpenHelper{
 						"realArrival varchar(5)," +
 						"status varchar(10)," +
 						"toPlace varchar(20)," +
-						"timeStamp INTEGER DEFAULT " + unixTimeStampStr + "," +
+					//	"timeStamp INTEGER DEFAULT " + unixTimeStampStr + "," +
 						"PRIMARY KEY(flightNumber)" + // will be unique for each day at least
 					");";
 		
