@@ -39,9 +39,7 @@ import android.widget.ImageView;
 	// Tab titles
 	private String[] isl_tabs = { "Brottfarir", "Komur", "Min flug" };
 	private String[] en_tabs = {"Departures", "Arrivals", "My flights"};
-	private boolean lang = LanguagesCheck.isTrue();
-	private static int counter = 1;
-	private static boolean count = LanguagesCheck.count();
+	private static int counter = LanguagesCheck.increment();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,9 +55,7 @@ import android.widget.ImageView;
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 
 		//Adding tabs
-		Log.d(String.valueOf(count),"Title");
-	
-		if(count == true){
+		if(counter % 2 == 0){
 			for (String tab_name : isl_tabs) {
 				actionBar.addTab(actionBar.newTab().setText(tab_name)
 						.setTabListener(this));
@@ -96,10 +92,7 @@ import android.widget.ImageView;
 	//Buttonclick method to switch between languages
 	public void buttonClickMethodLang(MenuItem item)
 	{
-		counter++;
-		LanguagesCheck.atli(counter);
-		boolean in = true;
-		LanguagesCheck.change(in);
+		counter = LanguagesCheck.increment();
 		Intent i = getIntent();
 		finish();
 		startActivity(i);
