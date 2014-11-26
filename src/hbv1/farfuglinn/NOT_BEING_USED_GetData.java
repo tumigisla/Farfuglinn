@@ -20,12 +20,12 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-public class NOT_BEGIN_USED_GetData {
+public class NOT_BEING_USED_GetData {
 
 	public final static int GET = 1;
 	static String response = null;
 
-	public NOT_BEGIN_USED_GetData() {
+	public NOT_BEING_USED_GetData() {
 
 	}
 

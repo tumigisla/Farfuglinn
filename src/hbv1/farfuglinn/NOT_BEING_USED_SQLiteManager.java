@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 
-public class NOT_BEGIN_USED_SQLiteManager extends SQLiteOpenHelper{
+public class NOT_BEING_USED_SQLiteManager extends SQLiteOpenHelper{
 
 	private static final String ATTR_AIRLINE = "airline";
 	private static final String ATTR_DATE = "date";
@@ -50,7 +50,7 @@ public class NOT_BEGIN_USED_SQLiteManager extends SQLiteOpenHelper{
 
 
 
-	public NOT_BEGIN_USED_SQLiteManager(Context context) {
+	public NOT_BEING_USED_SQLiteManager(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 	}
 

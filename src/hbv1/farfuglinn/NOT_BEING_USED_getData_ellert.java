@@ -20,7 +20,7 @@ import org.apache.http.params.BasicHttpParams;
 //import java.io.IOException;
 
 
-public class NOT_BEGIN_USED_getData_ellert {
+public class NOT_BEING_USED_getData_ellert {
 
 	public static String getFlightInfo(String url)
 	{

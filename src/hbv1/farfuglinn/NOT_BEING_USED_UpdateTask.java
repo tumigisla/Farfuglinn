@@ -12,13 +12,13 @@ import android.widget.Toast;
 
 
 
-public class NOT_BEGIN_USED_UpdateTask extends AsyncTask<Void, Void, Void>{
+public class NOT_BEING_USED_UpdateTask extends AsyncTask<Void, Void, Void>{
 
 	private Context mCon;
 
 
 
-	public NOT_BEGIN_USED_UpdateTask(Context con)
+	public NOT_BEING_USED_UpdateTask(Context con)
 	{
 		mCon = con;
 	}
