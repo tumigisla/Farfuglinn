@@ -5,9 +5,6 @@
 
 package hbv1.farfuglinn;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
