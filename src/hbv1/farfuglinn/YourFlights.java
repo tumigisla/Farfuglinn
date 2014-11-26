@@ -1,6 +1,6 @@
-/*  Atli SigurÃ°sson, Tumi Snær Gíslason, Trausti Már Svavarsson
+/*  Trausti MÃ¡r Svavarsson
 *   12.10.2014
-*   Birtir Ã¾Ã­n flug
+*   Displays your flights
 */
 
 package hbv1.farfuglinn;
@@ -57,7 +57,7 @@ public class YourFlights extends Fragment {
 			
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			new GetData();
+			//new GetData();
 			return null;
 		}
 			
@@ -72,7 +72,7 @@ public class YourFlights extends Fragment {
 				
 		}	
 	}
-	// það er eitthvað bug með að fá position til að kicka alltaf inn.... þarf að finna eh útúr því.
+	// ï¿½aï¿½ er eitthvaï¿½ bug meï¿½ aï¿½ fï¿½ position til aï¿½ kicka alltaf inn.... ï¿½arf aï¿½ finna eh ï¿½tï¿½r ï¿½vï¿½.
 	private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 			
