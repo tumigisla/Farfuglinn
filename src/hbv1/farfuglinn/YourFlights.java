@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 //yourflights
@@ -46,6 +47,7 @@ public class YourFlights extends Fragment {
 		listView.setAdapter(adapter);
 		//onclick listener
 		listView.setOnItemLongClickListener(onListClick);
+		listView.setOnItemClickListener(onListClick1);
 		
 		return rootView;
 	}
@@ -113,5 +115,14 @@ public class YourFlights extends Fragment {
 			}
 			else {return;}
 		}
-	}*/
+}*/
+	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
+	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	    { 
+	    	//show more info for clicked flight	
+	    	Toast.makeText(getActivity(), "Show more info", Toast.LENGTH_SHORT).show(); 
+	    }	
+
+	};	
 }
+

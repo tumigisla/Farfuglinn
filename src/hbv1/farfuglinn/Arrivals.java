@@ -66,8 +66,9 @@ public class Arrivals extends Fragment {
 			// populate the listView
 			listView = (ListView)rootView.findViewById(R.id.list);
 			listView.setAdapter(adapter);
+			//on click
 			listView.setOnItemLongClickListener(onListClick);
-			//listView.setOnItemClickListener(onListClick1);
+			listView.setOnItemClickListener(onListClick1);
 
 		}
 
@@ -129,8 +130,17 @@ public class Arrivals extends Fragment {
 		//else we add the flight to list
 		else{
 			YourFlights.yourFlightsList.add(this.flight);
-        	Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show(); 
+        	Toast.makeText(getActivity(), "You have added the flight to your flights", Toast.LENGTH_SHORT).show(); 
         	Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);
 		}
 	} 
+	
+	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
+	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	    { 
+	    	//show more info for clicked flight	
+	    	Toast.makeText(getActivity(), "Show more info", Toast.LENGTH_SHORT).show(); 
+	    }	
+
+	};
 }

@@ -123,7 +123,7 @@ public class Departures extends Fragment {
 		//else we add the flight to list
 		else{
 			YourFlights.yourFlightsList.add(flight);
-        	Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show(); 
+        	Toast.makeText(getActivity(), "You have added the flight to your flights", Toast.LENGTH_SHORT).show(); 
         	Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);
 		}
 	}
@@ -131,6 +131,8 @@ public class Departures extends Fragment {
 	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	    { 
+	    	
+	    	Toast.makeText(getActivity(), "Show more info", Toast.LENGTH_SHORT).show(); 
 	    //	listView.addView(getView1(), position);
 	    /*	if(!isclicked){
 	    		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
@@ -144,6 +146,5 @@ public class Departures extends Fragment {
 	    	}
 	    */	
 	    }	
-
 	};	
 }
