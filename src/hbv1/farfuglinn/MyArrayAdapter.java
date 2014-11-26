@@ -32,11 +32,11 @@ public class MyArrayAdapter extends ArrayAdapter<Flight> {
 		}
 
 		TextView to = (TextView)convertView.findViewById(R.id.to);
-		TextView plannedArrival = (TextView)convertView.findViewById(R.id.plannedArrival);
+		TextView realArrival = (TextView)convertView.findViewById(R.id.realArrival);
 		TextView airline = (TextView)convertView.findViewById(R.id.airline);
 
 		to.setText(flight.to);
-		plannedArrival.setText(flight.plannedArrival);
+		realArrival.setText(flight.realArrival);
 		airline.setText(flight.airline);
 
 		return convertView;
