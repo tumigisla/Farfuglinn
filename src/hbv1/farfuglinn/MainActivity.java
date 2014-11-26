@@ -60,6 +60,11 @@ ActionBar.TabListener {
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		
+		//load saved flights to list.
+		
+		YourFlights.yourFlightsList=Stream.readFromFile(this);
+		
 
 		//Adding tabs
 		if(counter % 2 == 0){

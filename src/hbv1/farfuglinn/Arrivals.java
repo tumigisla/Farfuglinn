@@ -30,6 +30,8 @@ public class Arrivals extends Fragment {
 	public static ArrayList<Flight> resultsList;
 	private static String url = "http://www.kefairport.is/Flugaaetlun/Komur/";
 	private ListView listView;
+	private View rootView;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +66,8 @@ public class Arrivals extends Fragment {
 			// populate the listView
 			listView = (ListView)rootView.findViewById(R.id.list);
 			listView.setAdapter(adapter);
+			listView.setOnItemLongClickListener(onListClick);
+			//listView.setOnItemClickListener(onListClick1);
 
 		}
 
@@ -83,56 +87,50 @@ public class Arrivals extends Fragment {
 
 	// There's some bug with getting the position to kick in all the time ... I have to figure it out
 	private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
-		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-
-			pos=position;
-
+			
+			flight = (Flight) parent.getAdapter().getItem(position);
+			//flight = (Flight) parent.getItemAtPosition(position);
+			//System.out.println("debug onclick"+flight.to);
 			registerForContextMenu(listView);
-			return false;
+			return false;		
 		}
 	};
-
-
-
-	private Integer pos=null;
-
-
-	private View rootView;
-
-
-
-
+	
+	
+	// create Context menu
+			@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		menu.setHeaderTitle("Options");
+		menu.add(0, v.getId(),0,"Add to Your Flights");
+		menu.add(0, v.getId(),0,"Cancel");
+	}
+			
+	@Override  // context selected
+	public boolean onContextItemSelected(MenuItem item) {  
+		 if(item.getTitle().equals("Add to Your Flights"))
+		 { 
+			 addFlight();
+		 }  
+		 else {
+			 return false;
+		 }  
+		 return true;  
+	}
+	
 	//adds flight in YourFlightslist
-	public void addFlight(int id){
-
-		flight = (Flight) listView.getItemAtPosition(pos);
+	private void addFlight(){  
+		
 		// check if the flight is already in your list.
-		if(YourFlights.yourFlightsList.contains(flight)){
+		if(YourFlights.yourFlightsList.contains(this.flight)|| flight == null){
 			Toast.makeText(getActivity(), "All ready in your flights", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		//else we add the flight to list
 		else{
-			YourFlights.yourFlightsList.add(flight);
-			Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show();
-			//stream_out
+			YourFlights.yourFlightsList.add(this.flight);
+        	Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show(); 
+        	Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);
 		}
-	}
-
-	@Override  // context selected
-	public boolean onContextItemSelected(MenuItem item) {
-		if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());} else
-			return false;
-		return true;
-	}
-	// create Context menu
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		menu.setHeaderTitle("Options");
-		menu.add(0, v.getId(),0,"Add to Your Flights");
-		menu.add(0, v.getId(),0,"Cancel");
-
-	}
-	
+	} 
 }

@@ -30,6 +30,8 @@ public class Departures extends Fragment {
 	public static ArrayList<Flight> resultsList;
 	private static String url = "http://www.kefairport.is/Flugaaetlun/Brottfarir/";
 	private ListView listView;
+	private View rootView;
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,11 +73,13 @@ public class Departures extends Fragment {
 			// populate the listView
 			listView = (ListView)rootView.findViewById(R.id.list);
 			listView.setAdapter(adapter);
+			//on click listeners
+			listView.setOnItemLongClickListener(onListClick);
+			listView.setOnItemClickListener(onListClick1);
 
 		}
 
 	}
-	
 	
 	// Make a Flight Object for things chosen in the list, and a pos variable that keeps
 	// track of the position in ListView.
@@ -83,55 +87,63 @@ public class Departures extends Fragment {
 	
 	// There's some bug with getting the position to kick in all the time ... I have to figure it out
 	private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
-		@Override
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
-
-			pos=position;
-
+			
+			flight = (Flight) parent.getAdapter().getItem(position);
+			//flight = (Flight) parent.getItemAtPosition(position);
 			registerForContextMenu(listView);
-
 			return false;
 		}
 	};
-
-
-	private Integer pos=null;
-
-
-	private View rootView;
-
-
-
-
-	// adds flight in yourFlights
-	public void addFlight(int id){
-		flight = (Flight) listView.getItemAtPosition(pos);
-		if(YourFlights.yourFlightsList.contains(flight)){
-			Toast.makeText(getActivity(), "All ready in your flights", Toast.LENGTH_SHORT).show();
-			return;
-		}
-
-		else{
-			YourFlights.yourFlightsList.add(flight);
-			Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show();
-			//stream_out
-		}
-	}
-	@Override // context selected
-	public boolean onContextItemSelected(MenuItem item) {
-		if(item.getTitle().equals("Add to Your Flights")){addFlight(item.getItemId());} else
-			return false;
-		return true;
-	}
-
-	// Context menu
+	
+		// Context menu
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+									ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle("Options");
 		menu.add(0, v.getId(),0,"Add to Your Flights");
 		menu.add(0, v.getId(),0,"Cancel");
-
+	}
+		
+	@Override // context selected 
+	public boolean onContextItemSelected(MenuItem item) {  
+		if(item.getTitle().equals("Add to Your Flights")){
+	        addFlight();
+	    }    
+	    else {return false;}  
+	    return true;  
+	}	
+	// adds flight in yourFlights
+	private void addFlight(){  
+		// check if the flight is already in your list.
+		if(YourFlights.yourFlightsList.contains(flight)|| this.flight == null){
+			Toast.makeText(getActivity(), "All ready in your flights", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		//else we add the flight to list
+		else{
+			YourFlights.yourFlightsList.add(flight);
+        	Toast.makeText(getActivity(), "You have added the flight to your flights"+YourFlights.yourFlightsList.toString(), Toast.LENGTH_SHORT).show(); 
+        	Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);
+		}
 	}
 	
+	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
+	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	    { 
+	    //	listView.addView(getView1(), position);
+	    /*	if(!isclicked){
+	    		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
+		    	isclicked = true;
+		    	listView.setAdapter(adapter);
+		    }
+	    	else{
+	    		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
+		    	isclicked = false;
+		    	listView.setAdapter(adapter);
+	    	}
+	    */	
+	    }	
+
+	};	
 }
