@@ -1,7 +1,7 @@
 /*
  * Ellert Finnbogi Eiríksson
  * 26.11.2014
- * Stores a global variable for keeping track of which language
+ * Stores a variable for keeping track of which language
  * is being used (English/Icelandic).
  */
 package hbv1.farfuglinn;
