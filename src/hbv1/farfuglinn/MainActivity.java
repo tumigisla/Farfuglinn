@@ -5,6 +5,9 @@
 
 package hbv1.farfuglinn;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import info.androidhive.tabsswipe.adapter.TabsPagerAdapter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -62,8 +65,7 @@ ActionBar.TabListener {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		//load saved flights to list.
-		
-		YourFlights.yourFlightsList=Stream.readFromFile(this);
+		Stream.readFromFile(this);
 		
 
 		//Adding tabs
