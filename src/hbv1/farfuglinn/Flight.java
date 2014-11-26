@@ -5,8 +5,10 @@
  */
 package hbv1.farfuglinn;
 
+import java.io.Serializable;
 
-public class Flight {
+
+public class Flight implements Serializable {
 
 	public String airline;
 	public String date;
