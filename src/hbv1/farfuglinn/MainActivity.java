@@ -1,6 +1,6 @@
-/*  Atli Sigurdsson
- *   12.10.2014
- *   Main klasi, tengist hinum med Fragment
+/*  Atli Sigurdsson, Tumi Snær Gíslason, Ellert Finnbogi Eiríksson
+ *   26.11.2014
+ *   Main class, connects to the other ones using Fragment.
  */
 
 package hbv1.farfuglinn;
@@ -71,6 +71,7 @@ ActionBar.TabListener {
 				actionBar.addTab(actionBar.newTab().setText(tab_name)
 						.setTabListener(this));
 			}
+			
 		}
 		else {
 			for (String tab_name : en_tabs) {

@@ -1,5 +1,5 @@
 /*  Atli SigurÃ°sson, Tumi Snær Gíslason, Trausti Már Svavarsson
- *   12.10.2014
+ *   26.11.2014
  *   Displays arrivals
  */
 

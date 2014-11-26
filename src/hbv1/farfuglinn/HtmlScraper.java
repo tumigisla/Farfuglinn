@@ -1,3 +1,9 @@
+/*
+ * Tumi Snær Gíslason
+ * 26.11.2014
+ * Fetches HTML source code and trims it to get
+ * the desired data.
+ */
 package hbv1.farfuglinn;
 
 
@@ -17,7 +23,6 @@ public class HtmlScraper {
 
 	private String tableData = "td";
 	private String tableDataEnd = "/td";
-	// constants, for trimming html
 	private String tableEnd = "</tr>";
 	private String tableRowEnd = "/tr";
 	private URL url;

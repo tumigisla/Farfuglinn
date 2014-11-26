@@ -1,5 +1,5 @@
 /*  Atli SigurÃ°sson, Tumi Snær Gíslason, Trausti Már Svavarsson
- *   05.11.2014
+ *   26.11.2014
  *   Displays departures
  */
 

@@ -1,3 +1,10 @@
+/*
+ * Trausti Már Svavarsson
+ * 26.11.2014
+ * Saves the selected flight to a file and
+ * loads flights from that file.
+ */
+
 package hbv1.farfuglinn;
 
 import java.io.FileInputStream;

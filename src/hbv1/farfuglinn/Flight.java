@@ -1,14 +1,11 @@
 /*
  * Tumi Snær Gíslason
- * 30.10.2014
+ * 26.11.2014
  * An instance of Flight is one entry in the ListView.
  */
 package hbv1.farfuglinn;
 
-import java.io.Serializable;
-
-
-public class Flight implements Serializable {
+public class Flight{
 
 	public String airline;
 	public String date;
