@@ -1,8 +1,8 @@
 /*
  * Trausti Már Svavarsson
  * 26.11.2014
- * Saves the selected flight to a file and
- * loads flights from that file.
+ * Saves the selected flightslist to a file and
+ * loads flightslist from that file.
  */
 
 package hbv1.farfuglinn;
@@ -46,6 +46,7 @@ public class Stream{
 	        Stream = (ArrayList<Flight>) objectInputStream.readObject();
 	        objectInputStream.close();
 	        fileInputStream.close();
+	        //public yourflightslist gets the data.
 	        YourFlights.yourFlightsList=Stream;
 	        
 		}

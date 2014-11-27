@@ -72,12 +72,11 @@ public class YourFlights extends Fragment {
 				
 		}	
 	}
-	// �a� er eitthva� bug me� a� f� position til a� kicka alltaf inn.... �arf a� finna eh �t�r �v�.
+	// On long click listener , it's buggy, it's something wrong with arraylist.
 	private AdapterView.OnItemLongClickListener onListClick = new AdapterView.OnItemLongClickListener() {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 			
 			flight = (Flight) parent.getAdapter().getItem(position);
-			//flight = (Flight) parent.getItemAtPosition(position);
 			registerForContextMenu(listView);
 				
 			return false;
@@ -107,15 +106,7 @@ public class YourFlights extends Fragment {
 		Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);	
 	} 
 		
-	/*public static void delOldFlights(ArrayList<Flight> list){
-	
-		for(Flight f: list){
-			if(!(brott.resultsList.contains(f) && kom.resultsList.contains(f))){	
-				list.remove(f);
-			}
-			else {return;}
-		}
-}*/
+	//on click listener to show more info, unfinished.
 	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	    { 

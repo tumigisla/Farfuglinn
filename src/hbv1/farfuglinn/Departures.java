@@ -81,8 +81,7 @@ public class Departures extends Fragment {
 
 	}
 	
-	// Make a Flight Object for things chosen in the list, and a pos variable that keeps
-	// track of the position in ListView.
+	// Make a Flight Object for things chosen in the list.
 	private Flight flight;
 	
 	// There's some bug with getting the position to kick in all the time ... I have to figure it out
@@ -90,7 +89,6 @@ public class Departures extends Fragment {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 			
 			flight = (Flight) parent.getAdapter().getItem(position);
-			//flight = (Flight) parent.getItemAtPosition(position);
 			registerForContextMenu(listView);
 			return false;
 		}
@@ -127,24 +125,13 @@ public class Departures extends Fragment {
         	Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);
 		}
 	}
-	
+	//on click listener to show more info, unfinished.
 	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	    { 
 	    	
 	    	Toast.makeText(getActivity(), "Show more info", Toast.LENGTH_SHORT).show(); 
-	    //	listView.addView(getView1(), position);
-	    /*	if(!isclicked){
-	    		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
-		    	isclicked = true;
-		    	listView.setAdapter(adapter);
-		    }
-	    	else{
-	    		MyArrayAdapter adapter = new MyArrayAdapter(getActivity(), resultsList);
-		    	isclicked = false;
-		    	listView.setAdapter(adapter);
-	    	}
-	    */	
+	  
 	    }	
 	};	
 }

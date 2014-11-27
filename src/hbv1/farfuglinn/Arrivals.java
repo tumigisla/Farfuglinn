@@ -66,7 +66,7 @@ public class Arrivals extends Fragment {
 			// populate the listView
 			listView = (ListView)rootView.findViewById(R.id.list);
 			listView.setAdapter(adapter);
-			//on click
+			//on listview click
 			listView.setOnItemLongClickListener(onListClick);
 			listView.setOnItemClickListener(onListClick1);
 
@@ -82,8 +82,7 @@ public class Arrivals extends Fragment {
 
 	}
 
-	// Make a Flight Object for things chosen in the list, and a pos variable that keeps
-	// track of the position in ListView.
+	// Make a Flight Object for things chosen in the list.
 	private Flight flight;
 
 	// There's some bug with getting the position to kick in all the time ... I have to figure it out
@@ -91,8 +90,6 @@ public class Arrivals extends Fragment {
 		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id){
 			
 			flight = (Flight) parent.getAdapter().getItem(position);
-			//flight = (Flight) parent.getItemAtPosition(position);
-			//System.out.println("debug onclick"+flight.to);
 			registerForContextMenu(listView);
 			return false;		
 		}
@@ -100,14 +97,14 @@ public class Arrivals extends Fragment {
 	
 	
 	// create Context menu
-			@Override
+	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle("Options");
 		menu.add(0, v.getId(),0,"Add to Your Flights");
 		menu.add(0, v.getId(),0,"Cancel");
 	}
-			
-	@Override  // context selected
+	 // context selected		
+	@Override 
 	public boolean onContextItemSelected(MenuItem item) {  
 		 if(item.getTitle().equals("Add to Your Flights"))
 		 { 
@@ -134,7 +131,7 @@ public class Arrivals extends Fragment {
         	Stream.saveList(null, getActivity(), YourFlights.yourFlightsList);
 		}
 	} 
-	
+	//on click listener to show more info, unfinished.
 	private AdapterView.OnItemClickListener onListClick1 = new AdapterView.OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	    { 
